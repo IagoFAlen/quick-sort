@@ -13,6 +13,7 @@ typedef struct array {
     array* left;
     int pivot;
     array* right;
+
     int leftSize;
     int pivotIndex;
     int rightSize;
@@ -29,13 +30,15 @@ void initialize(ARRAY* arr, int n) {
         return;
     }
 
-    arr->base = new int[n];        // No memory allocated for the array yet
-    arr->left = NULL;        // No left child
-    arr->right = NULL;       // No right child
-    arr->pivot = 0;          // Default pivot value
-    arr->leftSize = 0;       // No left elements
-    arr->pivotIndex = 0;     // Default pivot index
-    arr->rightSize = 0;      // No right elements
+    arr->base = new int[n];
+
+    arr->left = NULL;        
+    arr->pivot = 0;          
+    arr->right = NULL;
+
+    arr->leftSize = 0;       
+    arr->pivotIndex = 0;     
+    arr->rightSize = 0;      
 }
 
 int* feed_array(int n){
@@ -109,7 +112,7 @@ ARRAY* sort(ARRAY* arr, int n){
 
     arr->leftSize = i + 1;
     arr->pivotIndex = i + 1;
-    arr->rightSize = (n - arr->pivotIndex) - 1; // 10 - 5 - 1
+    arr->rightSize = (n - arr->pivotIndex) - 1;
 
     arr->left = feed_left(arr, arr->leftSize);
     arr->right = feed_right(arr, arr->pivotIndex, n, arr->rightSize);
