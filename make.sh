@@ -1,3 +1,4 @@
 mkdir -p out/build/
 cmake -S . -B out/build/
-cd out/build && make
+cmake --build out/build
+sudo cmake --install out/build --prefix /usr/local
