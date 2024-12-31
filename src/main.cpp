@@ -1,14 +1,15 @@
-#include "functions.hpp"
+#include "quicksort.cpp"
 
 using namespace std;
+using namespace quicksort;
 
 int main(){
-    ARRAY* arr;
     int numSize = 10;
-    initialize(arr, numSize);
-    arr->base = feed_array(numSize);
-    show(arr, numSize);
-    arr = sort(arr, numSize);
-    show(arr, numSize);
+    ARRAY* arr = new ARRAY(numSize);
+
+    arr->base = quicksort::feed_array(numSize);
+    quicksort::show(arr, numSize);
+    arr = quicksort::sort(arr, numSize);
+    quicksort::show(arr, numSize);
     return 0;
 }

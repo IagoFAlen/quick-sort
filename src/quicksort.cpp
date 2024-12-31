@@ -1,47 +1,10 @@
-#ifndef ARRAY_FUNCTIONS_INCLUDED
-#define ARRAY_FUNCTIONS_INCLUDED
-#include <cstdlib>
-#include <cstdio>
-#include <ctime>
-#include <iostream>
+#ifndef QUICKSORT_FUNCTIONS_INCLUDED
+#define QUICKSORT_FUNCTIONS_INCLUDED
+#include "quicksort.hpp"
 
-using namespace std;
+using namespace quicksort;
 
-typedef struct array {
-    int* base;
-
-    array* left;
-    int pivot;
-    array* right;
-
-    int leftSize;
-    int pivotIndex;
-    int rightSize;
-    
-    ~array(){
-        delete[] left;
-        delete[] right;
-    }
-} ARRAY;
-
-void initialize(ARRAY* arr, int n) {
-    // Ensure `arr` is not NULL
-    if (arr == NULL) {
-        return;
-    }
-
-    arr->base = new int[n];
-
-    arr->left = NULL;        
-    arr->pivot = 0;          
-    arr->right = NULL;
-
-    arr->leftSize = 0;       
-    arr->pivotIndex = 0;     
-    arr->rightSize = 0;      
-}
-
-int* feed_array(int n){
+int* quicksort::feed_array(int n){
     int* arr = new int[n];
 
     // Populate the array manually
@@ -53,18 +16,17 @@ int* feed_array(int n){
     return arr;
 }
 
-void show(ARRAY* arr, int n){
+void quicksort::show(ARRAY* arr, int n){
     for(int i = 0; i < n; i++){
-        cout << "A[" << i << "]: " << arr->base[i] << endl;
+        std::cout << "A[" << i << "]: " << arr->base[i] << std::endl;
     }
 
-    cout << endl;
+    std::cout << std::endl;
 }
 
-ARRAY* feed_left(ARRAY* arr, int n){
-    ARRAY* leftArr = new ARRAY;
+ARRAY* quicksort::feed_left(ARRAY* arr, int n){
+    ARRAY* leftArr = new ARRAY(n);
 
-    initialize(leftArr, n);
     for(int i = 0; i < n; i++){
         leftArr->base[i] = arr->base[i];
     }
@@ -73,9 +35,8 @@ ARRAY* feed_left(ARRAY* arr, int n){
 }
 
 // rightStart is pivotIndex
-ARRAY* feed_right(ARRAY* arr, int rightStart, int n, int rightSize){
-    ARRAY* rightArr = new ARRAY;
-    initialize(rightArr, rightSize);
+ARRAY* quicksort::feed_right(ARRAY* arr, int rightStart, int n, int rightSize){
+    ARRAY* rightArr = new ARRAY(rightSize);
 
     for(int i = rightStart; i < n - 1; i++){
         rightArr->base[i - rightStart] = arr->base[i];
@@ -84,7 +45,7 @@ ARRAY* feed_right(ARRAY* arr, int rightStart, int n, int rightSize){
     return rightArr;
 }
 
-int* rebase(ARRAY* arr, int leftSize, int pivotIndex, int rightStart, int n){
+int* quicksort::rebase(ARRAY* arr, int leftSize, int pivotIndex, int rightStart, int n){
     for(int i = 0; i <= leftSize; i++){
         arr->base[i] = arr->left->base[i];
     }
@@ -98,7 +59,7 @@ int* rebase(ARRAY* arr, int leftSize, int pivotIndex, int rightStart, int n){
     return arr->base;
 }
 
-ARRAY* sort(ARRAY* arr, int n){
+ARRAY* quicksort::sort(ARRAY* arr, int n){
     arr->pivot = arr->base[n - 1];
 
     int i = -1;
@@ -106,7 +67,7 @@ ARRAY* sort(ARRAY* arr, int n){
     for(int j = 0; j < n; j++){
         if(arr->base[j] < arr->pivot){
             i++;
-            swap(arr->base[j], arr->base[i]);
+            std::swap(arr->base[j], arr->base[i]);
         }
     }
 
