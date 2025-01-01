@@ -4,16 +4,61 @@
 
 using namespace quicksort;
 
-int* quicksort::feed_array(int n){
-    int* arr = new int[n];
+int* quicksort::feed_array_manually(){
+    int n = 10;
+    int* baseArr = new int[n];
 
     // Populate the array manually
     int values[] = {9, 4, 3, 8, 2, 7, 0, 6, 1, 5};
     for (int i = 0; i < n && i < sizeof(values) / sizeof(values[0]); i++) {
-        arr[i] = values[i];
+        baseArr[i] = values[i];
     }
 
-    return arr;
+    return baseArr;
+}
+
+bool quicksort::is_duplicated(int* baseArr, int n, int randomNumber){
+
+    for(int i = 0; i <= n; i++){
+        if(baseArr[i] == randomNumber)
+            return true;
+    }
+
+    return false;
+}
+
+int* quicksort::feed_array_generated(int n, int range){
+    int* baseArr = new int[n];
+    srand(time(NULL));
+
+    for (int i = 0; i < n; i++) {
+        int randomNumber = rand() % range;
+
+        while(is_duplicated(baseArr, i, randomNumber)){
+            randomNumber = rand() % range;
+        }
+
+        baseArr[i] = randomNumber;
+    }
+
+    return baseArr;
+}
+
+int* quicksort::feed_array_input(int n){
+    int* baseArr = new int[n];
+
+    int number = 0;
+
+    for(int i = 0; i < n; i++){
+        std::cout << "A[" << i << "]: ";
+        std::cin >> number;
+
+        baseArr[i] = number;
+        
+        number = 0;
+    }
+    
+    return baseArr;
 }
 
 void quicksort::show(ARRAY* arr, int n){

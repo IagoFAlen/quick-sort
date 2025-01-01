@@ -1,8 +1,9 @@
 #pragma once
+#include <iostream>
 #include <cstdlib>
 #include <cstdio>
 #include <ctime>
-#include <iostream>
+#include <cmath>
 
 namespace quicksort{
 
@@ -37,7 +38,10 @@ namespace quicksort{
     } ARRAY;
 
     void initialize(ARRAY* arr, int n);
-    int* feed_array(int n);
+    int* feed_array_manually();
+    bool is_duplicated(int* baseArr, int n, int randomNumber);
+    int* feed_array_generated(int n, int range);
+    int* feed_array_input(int n);
     void show(ARRAY* arr, int n);
     ARRAY* feed_left(ARRAY* arr, int n);
     ARRAY* feed_right(ARRAY* arr, int rightStart, int n, int rightSize);
